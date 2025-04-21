@@ -1,9 +1,36 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Список студентов";
 }
+@model IEnumerable<WebApplication1MVC.Models.Student>
 
 <div class="text-center">
-    <h2>Емельянов Алексей</h2>
+    <h2>Емельянов Алексей Олегович</h2>
     <p>Инженерия программного обеспечения</p>
     <p>3 курс</p>
 </div>
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Имя</th>
+            <th>Дата рождения</th>
+            <th>Дата поступления</th>
+            <th>Номер группы</th>
+            <th>Наименование факультетта</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model)
+        {
+            <tr>
+                <td>@student.StudentName</td>
+                <td>@student.Birthday.ToShortDateString()</td>
+                <td>@student.AdmissionDate.ToShortDateString()</td>
+                <td>@student.Group?.GroupNumber</td>
+                <td>@student.Group?.Institute?.InstituteName</td>
+            </tr>
+        }
+    </tbody>
+</table>
