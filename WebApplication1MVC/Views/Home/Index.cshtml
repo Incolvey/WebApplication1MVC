@@ -34,3 +34,16 @@
         }
     </tbody>
 </table>
+
+@using (Html.BeginForm("SearchByGroup", "Home", FormMethod.Post))
+{
+    <div class="form-group">
+        <label for="groupNumber">Номер группы:</label>
+        <input type="text" name="groupNumber" class="form-control"/>
+    </div>
+    <button type="submit">Поиск</button>
+}
+@if (ViewBag.Message != null)
+{
+    <div>@ViewBag.Message</div>
+}

@@ -25,6 +25,31 @@ namespace WebApplication1MVC.Controllers
             return View(students);
         }
 
+        [HttpPost]
+        public IActionResult SearchByGroup(string groupNumber)
+        {
+
+            if (string.IsNullOrWhiteSpace(groupNumber))
+            {
+                ViewBag.Message = "¬ведите номер группы";
+                return View("Index", new List<Student>());
+            }
+
+            var students = _context.Students
+                .Include(s => s.Group)
+                    .ThenInclude(g => g.Institute)
+                .Where(s => s.Group.GroupNumber == groupNumber)
+                .ToList();
+
+            if (!students.Any())
+            {
+                ViewBag.Message = "√руппа с таким номером не найдена.";
+                
+            }
+
+            return View("Index", students);
+        }
+
         public IActionResult Privacy()
         {
             return View();
